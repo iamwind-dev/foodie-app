@@ -2,8 +2,8 @@
 class ApiConstants {
   // Base URLs
   // On Android emulator, localhost is 10.0.2.2
-  static const String baseUrl = 'https://aide-luminous-seamanly.ngrok-free.dev';
-  static const String devBaseUrl = 'https://aide-luminous-seamanly.ngrok-free.dev';
+  static const String baseUrl = 'https://api1-dot-subtle-seat-475108-v5.et.r.appspot.com';
+  static const String devBaseUrl = 'https://api1-dot-subtle-seat-475108-v5.et.r.appspot.com';
   
   // Endpoints (FastAPI backend - see API_DOCUMENTATION.md)
   // Auth
