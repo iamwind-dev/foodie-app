@@ -256,33 +256,33 @@ class _AIRecipeViewState extends State<AIRecipeView> with SingleTickerProviderSt
           child: Row(
             children: [
               // Back button
-              // Material(
-              //   color: Colors.transparent,
-              //   child: InkWell(
-              //     onTap: () => Navigator.pop(context),
-              //     borderRadius: BorderRadius.circular(50),
-              //     child: Container(
-              //       padding: const EdgeInsets.all(10),
-              //       decoration: BoxDecoration(
-              //         color: Colors.white.withOpacity(0.8),
-              //         shape: BoxShape.circle,
-              //         boxShadow: [
-              //           BoxShadow(
-              //             color: Colors.black.withOpacity(0.08),
-              //             blurRadius: 8,
-              //             offset: const Offset(0, 2),
-              //           ),
-              //         ],
-              //       ),
-              //       child: const Icon(
-              //         Icons.arrow_back_rounded,
-              //         color: Color(0xFF2ECC71),
-              //         size: 22,
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              SizedBox(width: 120),
+              Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () => Navigator.pop(context),
+                  borderRadius: BorderRadius.circular(50),
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.8),
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.08),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: const Icon(
+                      Icons.arrow_back_rounded,
+                      color: Color(0xFF2ECC71),
+                      size: 22,
+                    ),
+                  ),
+                ),
+              ),
+              const Spacer(),
               // Title with AI badge
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

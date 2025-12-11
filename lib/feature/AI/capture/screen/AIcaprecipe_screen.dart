@@ -359,30 +359,30 @@ class _AICaptureRecipeViewState extends State<AICaptureRecipeView> with TickerPr
       child: Row(
         children: [
           // Back button
-          // Material(
-          //   color: Colors.transparent,
-          //   child: InkWell(
-          //     onTap: () => Navigator.pop(context),
-          //     borderRadius: BorderRadius.circular(50),
-          //     child: Container(
-          //       padding: const EdgeInsets.all(10),
-          //       decoration: BoxDecoration(
-          //         color: Colors.white.withOpacity(0.15),
-          //         shape: BoxShape.circle,
-          //         border: Border.all(
-          //           color: Colors.white.withOpacity(0.2),
-          //           width: 1,
-          //         ),
-          //       ),
-          //       child: const Icon(
-          //         Icons.arrow_back_rounded,
-          //         color: Colors.white,
-          //         size: 22,
-          //       ),
-          //     ),
-          //   ),
-          // ),
-          SizedBox(width: 90),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: () => Navigator.pop(context),
+              borderRadius: BorderRadius.circular(50),
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.15),
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.white.withOpacity(0.2),
+                    width: 1,
+                  ),
+                ),
+                child: const Icon(
+                  Icons.arrow_back_rounded,
+                  color: Colors.white,
+                  size: 22,
+                ),
+              ),
+            ),
+          ),
+          const Spacer(),
           // Title
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),

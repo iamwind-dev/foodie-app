@@ -7,6 +7,7 @@ import 'feature/main/shell.dart';
 import 'feature/recipe/screen/recipe_screen.dart';
 import 'feature/recipecreate/screen/recipecreate_screen.dart';
 import 'feature/setting/screen/setting_screen.dart';
+import 'feature/changepassword/screen/changepassword_screen.dart';
 import 'feature/AI/form/screen/AIrecipe_screen.dart';
 import 'feature/AI/capture/screen/AIcaprecipe_screen.dart';
 import 'feature/shoppinglist/screen/shoppinglist_screen.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         AppRoutes.recipe: (context) => const RecipeScreen(),
         AppRoutes.recipeCreate: (context) => const RecipeCreateScreen(),
         AppRoutes.setting: (context) => const SettingScreen(),
+        AppRoutes.changePassword: (context) => const ChangePasswordScreen(),
         AppRoutes.aiRecipe: (context) => const AIRecipeScreen(),
         AppRoutes.aiCaptureRecipe: (context) => const AICaptureRecipeScreen(),
         AppRoutes.shoppingList: (context) => const ShoppingListScreen(),

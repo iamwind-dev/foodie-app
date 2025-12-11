@@ -8,6 +8,7 @@ class AppRoutes {
   static const String recipe = '/recipe';
   static const String recipeCreate = '/recipe-create';
   static const String setting = '/setting';
+  static const String changePassword = '/change-password';
   static const String aiRecipe = '/ai-recipe';
   static const String aiCaptureRecipe = '/ai-capture-recipe';
   static const String shoppingList = '/shopping-list';

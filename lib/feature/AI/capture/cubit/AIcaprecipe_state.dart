@@ -9,6 +9,8 @@ abstract class AICaptureRecipeState extends Equatable {
 
 class AICaptureRecipeInitial extends AICaptureRecipeState {}
 
+class AICaptureRecipeCameraReady extends AICaptureRecipeState {}
+
 class AICaptureRecipeCapturing extends AICaptureRecipeState {}
 
 class AICaptureRecipeCaptured extends AICaptureRecipeState {

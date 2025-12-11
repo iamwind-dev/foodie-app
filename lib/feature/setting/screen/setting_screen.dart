@@ -137,6 +137,12 @@ class SettingView extends StatelessWidget {
         //   ),
         //   onTap: () => context.read<SettingCubit>().navigateToChangePassword(),
         // ),
+        _buildSettingItem(
+          icon: 'assets/img/setting_icon_password.svg',
+          title: 'Change Password',
+          trailing: const Icon(Icons.chevron_right, color: Color(0xFF9E9E9E)),
+          onTap: () => Navigator.pushNamed(context, AppRoutes.changePassword),
+        ),
         _buildDivider(),
         _buildSettingItem(
           icon: 'assets/img/setting_icon_logout.svg',

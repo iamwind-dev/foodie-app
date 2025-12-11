@@ -105,7 +105,16 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
                   child: Column(
                     children: [
                       // Close button
-                      
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: Padding(
+                              padding: const EdgeInsets.only(top: 12),
+                              child: AppIconButton(
+                                icon: Icons.close_rounded,
+                            onTap: () => Navigator.of(context).pop(),
+                            ),
+                          ),
+                        ),
                           SizedBox(height: screenHeight * 0.03),
                       // Logo
                           Hero(
@@ -166,28 +175,6 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
                                         );
                                   },
                           ),
-                          const SizedBox(height: 12),
-                          // Forgot password
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: TextButton(
-                              onPressed: () {
-                                // TODO: Implement forgot password
-                              },
-                              style: TextButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                              ),
-                              child: const Text(
-                                'Quên mật khẩu?',
-                                        style: TextStyle(
-                                  color: AppColors.textSecondary,
-                                  fontSize: 13,
-                                          fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                              ),
-                            ),
                           const SizedBox(height: 24),
                           // Login button
                           BlocBuilder<LoginCubit, LoginState>(

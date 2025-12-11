@@ -50,13 +50,6 @@ class _ShoppingListViewState extends State<ShoppingListView> with SingleTickerPr
     _loadFavorites();
   }
 
-  Future<void> _onRefresh() async {
-    await Future.wait([
-      context.read<ShoppingListCubit>().loadShoppingList(),
-      _loadFavorites(),
-    ]);
-  }
-
   @override
   void dispose() {
     _animationController.dispose();
@@ -93,23 +86,16 @@ class _ShoppingListViewState extends State<ShoppingListView> with SingleTickerPr
           _buildHeader(context),
           // Content
           Expanded(
-            child: RefreshIndicator(
-              color: const Color(0xFF2ECC71),
-              onRefresh: _onRefresh,
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: FadeTransition(
-                  opacity: _fadeAnimation,
-                  child: Column(
-                    children: [
-                      _buildSavedRecipes(),
-                      // Category Tabs
-                      
-                      // Shopping List
-                      
-                    ],
-                  ),
-                ),
+            child: FadeTransition(
+              opacity: _fadeAnimation,
+              child: Column(
+                children: [
+                  _buildSavedRecipes(),
+                  // Category Tabs
+                  
+                  // Shopping List
+                  
+                ],
               ),
             ),
           ),
@@ -154,25 +140,25 @@ class _ShoppingListViewState extends State<ShoppingListView> with SingleTickerPr
           child: Row(
             children: [
               // Back button
-              // Material(
-              //   color: Colors.transparent,
-              //   child: InkWell(
-              //     onTap: () => Navigator.pop(context),
-              //     borderRadius: BorderRadius.circular(50),
-              //     child: Container(
-              //       padding: const EdgeInsets.all(8),
-              //       decoration: BoxDecoration(
-              //         color: Colors.white.withOpacity(0.2),
-              //         shape: BoxShape.circle,
-              //       ),
-              //       child: const Icon(
-              //         Icons.arrow_back_rounded,
-              //         color: Colors.white,
-              //         size: 22,
-              //       ),
-              //     ),
-              //   ),
-              // ),
+              Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () => Navigator.pop(context),
+                  borderRadius: BorderRadius.circular(50),
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.arrow_back_rounded,
+                      color: Colors.white,
+                      size: 22,
+                    ),
+                  ),
+                ),
+              ),
               const SizedBox(width: 16),
               // Title
               Container(

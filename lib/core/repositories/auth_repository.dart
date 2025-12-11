@@ -75,6 +75,28 @@ class AuthRepository {
     }
   }
   
+  /// Change Password
+  Future<void> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    // Backend (bcrypt) rejects passwords >72 bytes; truncate to 72 chars to be safe
+    final safeCurrentPassword = currentPassword.length > 72 
+        ? currentPassword.substring(0, 72) 
+        : currentPassword;
+    final safeNewPassword = newPassword.length > 72 
+        ? newPassword.substring(0, 72) 
+        : newPassword;
+
+    await _apiService.post(
+      ApiConstants.changePassword,
+      data: {
+        'current_password': safeCurrentPassword,
+        'new_password': safeNewPassword,
+      },
+    );
+  }
+  
   /// Check if user is logged in
   Future<bool> isLoggedIn() async {
     final prefs = await SharedPreferences.getInstance();

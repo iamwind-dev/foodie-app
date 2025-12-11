@@ -6,13 +6,13 @@ class ApiConstants {
   // static const String baseUrl = 'https://aide-luminous-seamanly.ngrok-free.dev';
   static const String devBaseUrl = 'https://api1-dot-subtle-seat-475108-v5.et.r.appspot.com';
   // static const String devBaseUrl = 'https://aide-luminous-seamanly.ngrok-free.dev';
-  
   // Endpoints (FastAPI backend - see API_DOCUMENTATION.md)
   // Auth
   static const String login = '/api/auth/login';
   static const String register = '/api/auth/register';
   static const String logout = '/api/auth/logout';
   static const String refreshToken = '/api/auth/refresh';
+  static const String changePassword = '/api/auth/change-password';
   
   // User
   static const String profile = '/user/profile';

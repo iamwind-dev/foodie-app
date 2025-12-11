@@ -178,7 +178,10 @@ class ApiService {
         return Exception('Unexpected error: ${error.message}');
       
       default:
-        return Exception('Something went wrong');
+        print('DioException type: ${error.type}');
+        print('DioException message: ${error.message}');
+        print('DioException error: ${error.error}');
+        return Exception('Something went wrong: ${error.type} - ${error.message}');
     }
   }
 }
