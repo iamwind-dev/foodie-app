@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/api_constants.dart';
@@ -11,7 +13,10 @@ class ExternalAuthService {
   Future<String?> ensureExternalToken() async {
     final prefs = await SharedPreferences.getInstance();
     final cached = prefs.getString(ApiConstants.externalTokenKey);
-    if (cached != null && cached.isNotEmpty) return cached;
+    // Refresh when missing or expired
+    if (cached != null && cached.isNotEmpty && !_isExpired(cached)) {
+      return cached;
+    }
     return await _loginAndStore(prefs);
   }
 
@@ -44,6 +49,21 @@ class ExternalAuthService {
       }
     } catch (_) {}
     return null;
+  }
+
+  /// Decode JWT payload and check the `exp` claim; treat missing/invalid as expired.
+  bool _isExpired(String token) {
+    try {
+      final parts = token.split('.');
+      if (parts.length != 3) return true;
+      final payload = jsonDecode(utf8.decode(base64Url.decode(base64Url.normalize(parts[1]))));
+      final exp = payload['exp'];
+      if (exp is int) {
+        final nowSeconds = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+        return exp <= nowSeconds + 60; // add small skew
+      }
+    } catch (_) {}
+    return true;
   }
 }
 
