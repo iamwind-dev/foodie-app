@@ -5,6 +5,7 @@ import '../cubit/recipe_cubit.dart';
 import '../cubit/recipe_state.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/widgets.dart';
+import '../../../core/constants/app_routes.dart';
 
 class RecipeScreen extends StatelessWidget {
   final Map<String, dynamic>? generatedRecipe;
@@ -63,25 +64,47 @@ class RecipeView extends StatefulWidget {
 class _RecipeViewState extends State<RecipeView> {
   bool _showAllIngredients = false;
 
+  Future<bool> _handleBack() async {
+    final navigator = Navigator.of(context);
+    var foundHome = false;
+
+    navigator.popUntil((route) {
+      if (route.settings.name == AppRoutes.home) {
+        foundHome = true;
+        return true;
+      }
+      return route.isFirst;
+    });
+
+    if (!foundHome) {
+      navigator.pushReplacementNamed(AppRoutes.home);
+    }
+
+    return false; // we've handled navigation ourselves
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.backgroundLight,
-      body: BlocBuilder<RecipeCubit, RecipeState>(
-        builder: (context, state) {
-          if (state is RecipeLoading) {
-            return const AppLoadingWidget(message: 'Đang tải công thức...');
-          }
+    return WillPopScope(
+      onWillPop: _handleBack,
+      child: Scaffold(
+        backgroundColor: AppColors.backgroundLight,
+        body: BlocBuilder<RecipeCubit, RecipeState>(
+          builder: (context, state) {
+            if (state is RecipeLoading) {
+              return const AppLoadingWidget(message: 'Đang tải công thức...');
+            }
 
-          if (state is RecipeLoaded) {
-            return _buildRecipeContent(context, state);
-          }
+            if (state is RecipeLoaded) {
+              return _buildRecipeContent(context, state);
+            }
 
-          return const AppErrorWidget(
-            title: 'Lỗi',
-            message: 'Không thể tải công thức',
-          );
-        },
+            return const AppErrorWidget(
+              title: 'Lỗi',
+              message: 'Không thể tải công thức',
+            );
+          },
+        ),
       ),
     );
   }
@@ -155,7 +178,7 @@ class _RecipeViewState extends State<RecipeView> {
       );
     }
     return Padding(
-      padding: EdgeInsets.fromLTRB(12, MediaQuery.of(context).padding.top + 8, 12, 0),
+      padding: EdgeInsets.fromLTRB(12, MediaQuery.of(context).padding.top + 12, 12, 0),
       child: _buildTopBar(context, overlay: false),
     );
   }
@@ -211,7 +234,9 @@ class _RecipeViewState extends State<RecipeView> {
       children: [
         _circleButton(
           icon: Icons.arrow_back_rounded,
-          onTap: () => Navigator.pop(context),
+          onTap: () {
+            _handleBack();
+          },
         ),
         const Spacer(),
         _circleButton(
