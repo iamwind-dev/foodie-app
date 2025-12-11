@@ -105,16 +105,7 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
                   child: Column(
                     children: [
                       // Close button
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: Padding(
-                              padding: const EdgeInsets.only(top: 12),
-                              child: AppIconButton(
-                                icon: Icons.close_rounded,
-                            onTap: () => Navigator.of(context).pop(),
-                            ),
-                          ),
-                        ),
+                      
                           SizedBox(height: screenHeight * 0.03),
                       // Logo
                           Hero(

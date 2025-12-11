@@ -50,6 +50,13 @@ class _ShoppingListViewState extends State<ShoppingListView> with SingleTickerPr
     _loadFavorites();
   }
 
+  Future<void> _onRefresh() async {
+    await Future.wait([
+      context.read<ShoppingListCubit>().loadShoppingList(),
+      _loadFavorites(),
+    ]);
+  }
+
   @override
   void dispose() {
     _animationController.dispose();
@@ -86,16 +93,23 @@ class _ShoppingListViewState extends State<ShoppingListView> with SingleTickerPr
           _buildHeader(context),
           // Content
           Expanded(
-            child: FadeTransition(
-              opacity: _fadeAnimation,
-              child: Column(
-                children: [
-                  _buildSavedRecipes(),
-                  // Category Tabs
-                  
-                  // Shopping List
-                  
-                ],
+            child: RefreshIndicator(
+              color: const Color(0xFF2ECC71),
+              onRefresh: _onRefresh,
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: FadeTransition(
+                  opacity: _fadeAnimation,
+                  child: Column(
+                    children: [
+                      _buildSavedRecipes(),
+                      // Category Tabs
+                      
+                      // Shopping List
+                      
+                    ],
+                  ),
+                ),
               ),
             ),
           ),

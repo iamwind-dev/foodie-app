@@ -4,7 +4,7 @@ import 'shoppinglist_state.dart';
 class ShoppingListCubit extends Cubit<ShoppingListState> {
   ShoppingListCubit() : super(ShoppingListInitial());
 
-  void loadShoppingList() {
+  Future<void> loadShoppingList() async {
     emit(ShoppingListLoading());
 
     // Mock data - giống như trong ảnh
