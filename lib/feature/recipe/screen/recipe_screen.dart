@@ -5,6 +5,7 @@ import '../cubit/recipe_cubit.dart';
 import '../cubit/recipe_state.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/widgets.dart';
+import '../../../core/constants/app_routes.dart';
 
 class RecipeScreen extends StatelessWidget {
   final Map<String, dynamic>? generatedRecipe;
@@ -211,7 +212,7 @@ class _RecipeViewState extends State<RecipeView> {
       children: [
         _circleButton(
           icon: Icons.arrow_back_rounded,
-          onTap: () => Navigator.pop(context),
+          onTap: () => _navigateHome(context),
         ),
         const Spacer(),
         _circleButton(
@@ -250,6 +251,14 @@ class _RecipeViewState extends State<RecipeView> {
           child: Icon(icon, size: 20, color: Colors.black87),
         ),
       ),
+    );
+  }
+
+  void _navigateHome(BuildContext context) {
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      AppRoutes.home,
+      (route) => false,
     );
   }
 

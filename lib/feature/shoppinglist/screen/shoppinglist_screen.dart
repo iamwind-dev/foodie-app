@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/shoppinglist_cubit.dart';
 import '../cubit/shoppinglist_state.dart';
-import '../../../core/widgets/bottom_navigation.dart';
 import '../../../core/constants/app_routes.dart';
 import '../../../core/repositories/favorite_repository.dart';
 
@@ -26,7 +25,6 @@ class ShoppingListView extends StatefulWidget {
 }
 
 class _ShoppingListViewState extends State<ShoppingListView> with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
-  int _currentNavIndex = 1; // Shopping list tab
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   final FavoriteRepository _favoriteRepository = FavoriteRepository();
@@ -56,16 +54,6 @@ class _ShoppingListViewState extends State<ShoppingListView> with SingleTickerPr
     super.dispose();
   }
 
-  void _onNavTap(int index) {
-    if (index == 1) return; // Already on shopping list
-    setState(() {
-      _currentNavIndex = index;
-    });
-    if (index == 0) {
-      Navigator.pushReplacementNamed(context, AppRoutes.home);
-    }
-  }
-
   Future<void> _loadFavorites() async {
     final data = await _favoriteRepository.getFavorites();
     if (!mounted) return;
@@ -80,35 +68,29 @@ class _ShoppingListViewState extends State<ShoppingListView> with SingleTickerPr
     super.build(context);
     return Scaffold(
       backgroundColor: const Color(0xFFEAFAF1),
-      body: Column(
-        children: [
-          // Header
-          _buildHeader(context),
-          // Content
-          Expanded(
-            child: FadeTransition(
-              opacity: _fadeAnimation,
-              child: Column(
-                children: [
-                  _buildSavedRecipes(),
-                  // Category Tabs
-                  
-                  // Shopping List
-                  
-                ],
+      body: RefreshIndicator(
+        color: const Color(0xFF2ECC71),
+        onRefresh: _refreshAll,
+        child: CustomScrollView(
+          physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+          slivers: [
+            SliverToBoxAdapter(child: _buildHeader(context)),
+            SliverToBoxAdapter(
+              child: FadeTransition(
+                opacity: _fadeAnimation,
+                child: Column(
+                  children: [
+                    _buildSavedRecipes(),
+                    // Category Tabs
+                    
+                    // Shopping List
+                    
+                  ],
+                ),
               ),
             ),
-          ),
-          // Bottom Navigation
-          // BottomNavigation(
-          //   currentIndex: _currentNavIndex,
-          //   onTap: _onNavTap,
-          //   onShoppingList: () {}, // Already here
-          //   onScanRecipe: () => Navigator.pushNamed(context, AppRoutes.aiCaptureRecipe),
-          //   onCreateRecipe: () => Navigator.pushNamed(context, AppRoutes.recipeCreate),
-          //   onGenerateRecipe: () => Navigator.pushNamed(context, AppRoutes.aiRecipe),
-          // ),
-        ],
+          ],
+        ),
       ),
       floatingActionButton: _buildAddButton(context),
     );
@@ -139,27 +121,7 @@ class _ShoppingListViewState extends State<ShoppingListView> with SingleTickerPr
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
           child: Row(
             children: [
-              // Back button
-              Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: () => Navigator.pop(context),
-                  borderRadius: BorderRadius.circular(50),
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(
-                      Icons.arrow_back_rounded,
-                      color: Colors.white,
-                      size: 22,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 16),
+              const SizedBox(width: 4),
               // Title
               Container(
                 padding: const EdgeInsets.all(10),
@@ -238,6 +200,14 @@ class _ShoppingListViewState extends State<ShoppingListView> with SingleTickerPr
         ),
       ),
     );
+  }
+
+  Future<void> _refreshAll() async {
+    setState(() => _loadingFavorites = true);
+    await _loadFavorites();
+    if (mounted) {
+      context.read<ShoppingListCubit>().loadShoppingList();
+    }
   }
 
   Widget _buildSavedRecipes() {

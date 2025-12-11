@@ -247,14 +247,11 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
             // Logo with subtle shadow
             Container(
               padding: const EdgeInsets.all(4),
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(12),
-              ),
+              
               child: Image.asset(
                 'assets/img/logo1.png',
-                width: 60,
-                height: 40,
+                width: 70,
+                height: 50,
                 fit: BoxFit.contain,
               ),
             ),

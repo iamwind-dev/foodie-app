@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/recipecreate_cubit.dart';
 import '../cubit/recipecreate_state.dart';
-import '../../../core/widgets/bottom_navigation.dart';
-import '../../../core/constants/app_routes.dart';
 
 class RecipeCreateScreen extends StatelessWidget {
   const RecipeCreateScreen({super.key});
@@ -27,7 +25,6 @@ class RecipeCreateView extends StatefulWidget {
 }
 
 class _RecipeCreateViewState extends State<RecipeCreateView> with SingleTickerProviderStateMixin {
-  int _currentNavIndex = 3; // Create tab
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
 
@@ -48,16 +45,6 @@ class _RecipeCreateViewState extends State<RecipeCreateView> with SingleTickerPr
   void dispose() {
     _animationController.dispose();
     super.dispose();
-  }
-
-  void _onNavTap(int index) {
-    if (index == 3) return; // Already on create
-    setState(() {
-      _currentNavIndex = index;
-    });
-    if (index == 0) {
-      Navigator.pushReplacementNamed(context, AppRoutes.home);
-    }
   }
 
   @override
@@ -279,33 +266,7 @@ class _RecipeCreateViewState extends State<RecipeCreateView> with SingleTickerPr
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
           child: Row(
             children: [
-              // Back button
-              Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: () => Navigator.pop(context),
-                  borderRadius: BorderRadius.circular(50),
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.8),
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.08),
-                          blurRadius: 8,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: const Icon(
-                      Icons.arrow_back_rounded,
-                      color: Color(0xFF2ECC71),
-                      size: 22,
-                    ),
-                  ),
-                ),
-              ),
+              const SizedBox(width: 44),
               const Spacer(),
               // Title
               Container(

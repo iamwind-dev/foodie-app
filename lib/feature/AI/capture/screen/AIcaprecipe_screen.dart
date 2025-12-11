@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/AIcaprecipe_cubit.dart';
 import '../cubit/AIcaprecipe_state.dart';
 import '../../../../core/constants/app_routes.dart';
-import '../../../../core/widgets/bottom_navigation.dart';
 
 class AICaptureRecipeScreen extends StatelessWidget {
   const AICaptureRecipeScreen({super.key});
@@ -28,7 +27,6 @@ class AICaptureRecipeView extends StatefulWidget {
 }
 
 class _AICaptureRecipeViewState extends State<AICaptureRecipeView> with TickerProviderStateMixin {
-  int _currentNavIndex = 2; // Camera/Scan tab
   late AnimationController _animationController;
   late Animation<double> _pulseAnimation;
   late AnimationController _scanController;
@@ -71,16 +69,6 @@ class _AICaptureRecipeViewState extends State<AICaptureRecipeView> with TickerPr
     _scanController.dispose();
     _cameraController?.dispose();
     super.dispose();
-  }
-
-  void _onNavTap(int index) {
-    if (index == 2) return; // Already on scan
-    setState(() {
-      _currentNavIndex = index;
-    });
-    if (index == 0) {
-      Navigator.pushReplacementNamed(context, AppRoutes.home);
-    }
   }
 
   Future<void> _initCamera() async {
@@ -358,30 +346,7 @@ class _AICaptureRecipeViewState extends State<AICaptureRecipeView> with TickerPr
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
       child: Row(
         children: [
-          // Back button
-          Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: () => Navigator.pop(context),
-              borderRadius: BorderRadius.circular(50),
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.15),
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.white.withOpacity(0.2),
-                    width: 1,
-                  ),
-                ),
-                child: const Icon(
-                  Icons.arrow_back_rounded,
-                  color: Colors.white,
-                  size: 22,
-                ),
-              ),
-            ),
-          ),
+          const SizedBox(width: 44),
           const Spacer(),
           // Title
           Container(
